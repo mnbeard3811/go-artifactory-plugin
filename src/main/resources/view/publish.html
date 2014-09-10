@@ -40,7 +40,11 @@ jQuery(document).ready(function() {
 				    
 				    <label>Build properties:</label>
 				    <textarea class="form_input code_text" cols="50" rows="5" wrap="off" ng-model="Properties"></textarea>
-				
+				 <input type="radio" name="publishTypes" value="1" checked="checked">Capture and publish build info<br>
+                                    <input type="radio" name="publishTypes" value="1" checked="checked">Include all environment variables<br>
+                                    <input type="radio" name="publishTypes" value="1" checked="checked">Discard old builds from Artifactory (requires      Artifactory Pro<br>
+                                    <input type="radio" name="publishTypes" value="1" checked="checked">Discard build artifacts<br>
+                                    <input type="radio" name="publishTypes" value="1" checked="checked">Keep archived artifacts from remote agent<br>
 				    <div class="inline_instruction">A key=value pair on each line</div>
 				    <span class="form_error"
 				          ng-show="GOINPUTNAME[Properties].$error.server">{{ GOINPUTNAME[Properties].$error.server }}</span>
