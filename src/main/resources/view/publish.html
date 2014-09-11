@@ -12,11 +12,13 @@ jQuery(document).ready(function() {
 <div class="form_item_block">
 
     <div id="publishTypeGroup">
+		<!-- Start Generic Artifactory Integration form -->
 		<input type="radio" name="publishTypes" value="1" checked="checked">Generic<br>
 			<div id="PublishTypes1" class="desc" style="border: 1px solid; border-radius: 15px;margin-left: 50px;">
 				<div style="margin: 10px;">
-			    	<lable>Generic Publish:</lable><br>
-			    	<br>
+			    	<label>Generic Publish:</label><br>
+<input type="checkbox" name="GenericConfig" value="1" >Generic-Artifactory Integration<br>
+<h4>Artifactory Configuration</h4>
 			    	<label>Artifactory URI:<span class="asterisk">*</span></label>
 				    <input type="text" ng-model="URI" />
 				    <span class="form_error" ng-show="GOINPUTNAME[URI].$error.server">{{ GOINPUTNAME[URI].$error.server }}</span>
@@ -38,36 +40,188 @@ jQuery(document).ready(function() {
 				        are allowed)
 				    </div>
 				    
-				    <label>Build properties:</label>
-				    <textarea class="form_input code_text" cols="50" rows="5" wrap="off" ng-model="Properties"></textarea>
-				 <input type="radio" name="publishTypes" value="1" checked="checked">Capture and publish build info<br>
-                                    <input type="radio" name="publishTypes" value="1" checked="checked">Include all environment variables<br>
-                                    <input type="radio" name="publishTypes" value="1" checked="checked">Discard old builds from Artifactory (requires      Artifactory Pro<br>
-                                    <input type="radio" name="publishTypes" value="1" checked="checked">Discard build artifacts<br>
-                                    <input type="radio" name="publishTypes" value="1" checked="checked">Keep archived artifacts from remote agent<br>
+				    <label>Build properties:</label><br>
+				    <textarea class="form_input code_text" cols="50" rows="5" wrap="off" ng-model="Properties"></textarea><br><br>
+                                    <input type="checkbox" name="GenericConfig2" value="1" >Capture and publish build info<br>
+                                    <input type="checkbox" name="GenericConfig2" value="1" >Include all environment variables<br>
+                                    <input type="checkbox" name="GenericConfig2" value="1" >Discard old builds from Artifactory (requires Artifactory Pro<br>
+                                    <input type="checkbox" name="GenericConfig2" value="1" >Discard build artifacts<br><br>
+                                    <input type="checkbox" name="GenericConfig2" value="1" >Keep archived artifacts from remote agent<br>
+									
+				
 				    <div class="inline_instruction">A key=value pair on each line</div>
 				    <span class="form_error"
 				          ng-show="GOINPUTNAME[Properties].$error.server">{{ GOINPUTNAME[Properties].$error.server }}</span>
-							    
+</div>
+</div>
+		
+<!--Start Ivy build form -->
+<input type="radio" name="publishTypes" value="2" checked="checked>Ivy<br>
+		<div id="PublishTypes2" class="desc" style="border: 1px solid; border-radius: 15px;margin-left: 50px;">
+                     <div id="PublishTypes1" class="desc" style="border: 1px solid; border-radius: 15px;margin-left: 50px;">
+			 <div style="margin: 10px;">
+		    		<label>Ivy Publish:</label><br>
+<h5>Build Environment</h5>
+<input type="checkbox" name="ivyConfig0" value-"1" checked="checked">Publish to Artifactory<br><br>
+
+<label>Artifactory URI:<span class="asterisk">*</span></label>
+				    <input type="text" ng-model="URI" />
+				    <span class="form_error" ng-show="GOINPUTNAME[URI].$error.server">{{ GOINPUTNAME[URI].$error.server }}</span>
+				    <div class="inline_instruction">e.g. repo-key/path/to/artifact (or repo-key/dir if there are multiple artifacts)</div>
+
+<input type="checkbox" ng-model="uriIsFolderTmp"
+				           ng-init="uriIsFolderTmp = uriIsFolder" ng-change="uriIsFolder = uriIsFolderTmp" ng-true-value="true" ng-false-value="false" />
+				    <input type="hidden" ng-model="uriIsFolder" value="{{ uriIsFolder }}">
+				
+				    <label class="inline">URI denotes a folder</label> 
 				    
-			    </div>
-		    </div>
-		<input type="radio" name="publishTypes" value="2">Ivy<br>
-			 <div id="PublishTypes2" class="desc" style="display: none;border: 1px solid; border-radius: 15px;margin-left: 50px;">
-		    	<div style="margin: 10px;">
-		    		<lable>Ivy Publish:</lable><br>
-		    	</div> 
-		    </div>
+				    
+				    <label>Artifact Path:<span class="asterisk">*</span></label>
+				    <input type="text" ng-model="Path"/>
+				    <span class="form_error" ng-show="GOINPUTNAME[Path].$error.server">{{ GOINPUTNAME[Path].$error.server }}</span>
+				    <div class="inline_instruction">Relative to working directory (<a
+				            href="http://docs.oracle.com/javase/7/docs/api/java/nio/file/FileSystem.html#getPathMatcher(java.lang.String)">globs</a>
+				        are allowed)
+				    </div>
+
+<input type="checkbox" name="ivyConfig1" value="1" checked="checked">Override default deployer credentials<br>
+<input type="checkbox" name="ivyConfig2" value="1" checked="checked">Publish artifacts to Artifactory<br>
+<input type="checkbox" name="ivyConfig3" value="1" checked="checked">Use Maven compatible patterns<br>
+<br>
+<label>Ivy Pattern</label><input type="text" name="ivyconfig4"><br>
+<label>Artifact Pattern</label><input type="text" name="ivyconfig4"><br>
+<label>Include Patterns</label><input type="text" name="ivyconfig5"><br>
+<label>Exclude Patterns</label><input type="text" name="ivyconfig6"><br>
+
+<input type="checkbox" name="ivyConfig7" value="1" checked="checked">Capture and publish build info<br>
+<input type="checkbox" name="ivyConfig8" value="1" checked="checked">Include all environment variables<br>
+<input type="checkbox" name="ivyConfig9" value="1" checked="checked">Run license checks (requires Pro)<br>
+<label>Send license violation notifications to:</label><input type="text" name="ivyconfig10"><br>
+<div class="inline_instruction">Space-separated list of recipient addresses.</div>
+<label>Limit Checks to the following configurations:</label><input type="text" name="ivyconfig11"><br>
+<div class="inline_instruction">Space-separated list of configurations.</div>
+<input type="checkbox" name="ivyConfig12" value="1" checked="checked">Include published artifacts<br>
+<input type="checkbox" name="ivyConfig13" value="1" checked="checked">Disable automatic license discovery<br>
+</div> 
+</div>
+
+
+
+<!--Start Maven build form -->
 		<input type="radio" name="publishTypes" value="3">Maven<br>
-		 <div id="PublishTypes3" class="desc" style="display: none;border: 1px solid; border-radius: 15px;margin-left: 50px;">
+		 <div id="PublishTypes3" class="desc" style="border: 1px solid; border-radius: 15px;margin-left: 50px;">
 	    	<div style="margin: 10px;">
-	    		<lable>Maven Publish:</lable><br>
-	    	</div> 
-	    </div>
+	    		<label>Maven Publish:</label><br>
+<input type="checkbox" name="mavenConfig0" value="1" checked="checked">Deploy artifacts to Artifactory<br>
+<h4>Artifactory Configuration</h4>
+
+<label>Artifactory URI:<span class="asterisk">*</span></label>
+				    <input type="text" ng-model="URI" />
+				    <span class="form_error" ng-show="GOINPUTNAME[URI].$error.server">{{ GOINPUTNAME[URI].$error.server }}</span>
+				    <div class="inline_instruction">e.g. repo-key/path/to/artifact (or repo-key/dir if there are multiple artifacts)</div>
+				
+				    <!-- hack to make checkboxes work in Go Angular templates -->
+				    <input type="checkbox" ng-model="uriIsFolderTmp"
+				           ng-init="uriIsFolderTmp = uriIsFolder" ng-change="uriIsFolder = uriIsFolderTmp" ng-true-value="true" ng-false-value="false" />
+				    <input type="hidden" ng-model="uriIsFolder" value="{{ uriIsFolder }}">
+				
+				    <label class="inline">URI denotes a folder</label> <br>
+				    
+				    
+				    <label>Target Release repository:<span class="asterisk">*</span></label>
+				    <input type="text" ng-model="Path"/>
+				    <span class="form_error" ng-show="GOINPUTNAME[Path].$error.server">{{ GOINPUTNAME[Path].$error.server }}</span>
+				    <div class="inline_instruction">Relative to working directory (<a
+				            href="http://docs.oracle.com/javase/7/docs/api/java/nio/file/FileSystem.html#getPathMatcher(java.lang.String)">globs</a>
+				        are allowed)
+				    </div>
+<label>Target Snapshots repository:<span class="asterisk">*</span></label>
+				    <input type="text" ng-model="Path"/>
+				    <span class="form_error" ng-show="GOINPUTNAME[Path].$error.server">{{ GOINPUTNAME[Path].$error.server }}</span>
+				    <div class="inline_instruction">Relative to working directory (<a
+				            href="http://docs.oracle.com/javase/7/docs/api/java/nio/file/FileSystem.html#getPathMatcher(java.lang.String)">globs</a>
+				        are allowed)
+				    </div>
+<input type="checkbox" name="mavenConfig1" value="1" checked="checked">Override default deployer credentials<br>
+<input type="checkbox" name="mavenConfig2" value="1" checked="checked">Deploy even if the build is unstable<br>
+<input type="checkbox" name="mavenConfig3" value="1" checked="checked">Deploy maven artifacts<br>
+<label>Include Patterns</label><input type="text" name="mavenConfig10"><br>
+<label>Exclude Patterns</label><input type="text" name="mavenConfig10"><br>
+<input type="checkbox" name="mavenConfig4" value="1" checked="checked">Capture and publish build info<br>
+<input type="checkbox" name="mavenConfig5" value="1" checked="checked">Include all environment variables<br>
+<input type="checkbox" name="mavenConfig6" value="1" checked="checked">Run license checks (Requires Pro)<br>
+
+<div id="PublishTypes3" class="desc" style="border: 1px solid; border-radius: 15px;margin-left: 50px;">
+	    	<div style="margin: 10px;">
+<input type="checkbox">Resolve artifacts from Artifactory<br><br>
+<label>Artifactory server</label><input type="text"><br>
+<label>Resolution releases repository</label><input type="text"><br>
+<label>Resolution snapshots repository</label><input type="text"><br><br>
+<input type="checkbox">Override default resolution credentials<br>
+
+</div>
+</div>
+</div> 
+</div>
+
+<!--Start Gradle build form -->
 		<input type="radio" name="publishTypes" value="4">Gradle
-	 	<div id="PublishTypes4" class="desc" style="display: none;border: 1px solid; border-radius: 15px;margin-left: 50px;">
+	 	<div id="PublishTypes4" class="desc" style="border: 1px solid; border-radius: 15px;margin-left: 50px;">
 	    	<div style="margin: 10px;">
 	    		<lable>Gradle Publish:</lable><br>
+<input type="checkbox" name="mavenConfig0" value="1" checked="checked">Deploy artifacts to Artifactory<br>
+<h4>Artifactory Configuration</h4>
+
+<label>Artifactory URI:<span class="asterisk">*</span></label>
+				    <input type="text" ng-model="URI" />
+				    <span class="form_error" ng-show="GOINPUTNAME[URI].$error.server">{{ GOINPUTNAME[URI].$error.server }}</span>
+				    <div class="inline_instruction">e.g. repo-key/path/to/artifact (or repo-key/dir if there are multiple artifacts)</div>
+				
+				    <!-- hack to make checkboxes work in Go Angular templates -->
+				    <input type="checkbox" ng-model="uriIsFolderTmp"
+				           ng-init="uriIsFolderTmp = uriIsFolder" ng-change="uriIsFolder = uriIsFolderTmp" ng-true-value="true" ng-false-value="false" />
+				    <input type="hidden" ng-model="uriIsFolder" value="{{ uriIsFolder }}">
+				
+				    <label class="inline">URI denotes a folder</label> <br>
+				    
+				    
+				    <label>Resolution repository<span class="asterisk">*</span></label>
+				    <input type="text" ng-model="Path"/>
+				    <span class="form_error" ng-show="GOINPUTNAME[Path].$error.server">{{ GOINPUTNAME[Path].$error.server }}</span>
+				    <div class="inline_instruction">Relative to working directory (<a
+				            href="http://docs.oracle.com/javase/7/docs/api/java/nio/file/FileSystem.html#getPathMatcher(java.lang.String)">globs</a>
+				        are allowed)
+				    </div>
+<label>Publishing repository<span class="asterisk">*</span></label>
+				    <input type="text" ng-model="Path"/>
+				    <span class="form_error" ng-show="GOINPUTNAME[Path].$error.server">{{ GOINPUTNAME[Path].$error.server }}</span>
+				    <div class="inline_instruction">Relative to working directory (<a
+				            href="http://docs.oracle.com/javase/7/docs/api/java/nio/file/FileSystem.html#getPathMatcher(java.lang.String)">globs</a>
+				        are allowed)
+				    </div>
+<input type="checkbox" name="gradleConfig0" value="1" checked="checked">Override default deployer credentials<br>
+<label>Username</label><input type="text" name="gradleConfig2"><br>
+<label>Password</label><input type="text" name="gradleConfig3"><br>
+<input type="checkbox" name="gradleConfig4" value="1" checked="checked">Capture and publish build info<br>
+<input type="checkbox" name="gradleConfig5" value="1" checked="checked">Include all environment variables<br>
+<input type="checkbox" name="gradleConfig6" value="1" checked="checked">Run license checks (Requires Pro)<br>
+<label>Send license violation notifications to:</label><input type="text" name="gradleconfig7"><br>
+<div class="inline_instruction">Space-separated list of recipient addresses.</div>
+<label>Limit Checks to the following configurations:</label><input type="text" name="gradleconfig8"><br>
+<div class="inline_instruction">Space-separated list of configurations.</div>
+<input type="checkbox" name="gradleConfig9" value="1" checked="checked">Include Published artifacts<br>
+<input type="checkbox" name="gradleConfig10" value="1" checked="checked">Disable automatic license discovery<br>
+<input type="checkbox" name="gradleConfig11" value="1" checked="checked">Capture and publish build info<br>
+<input type="checkbox" name="gradleConfig12" value="1" checked="checked">Publish artifacts to Artifactory<br>
+<input type="checkbox" name="gradleConfig13" value="1" checked="checked">Publish maven descriptors<br>
+<input type="checkbox" name="gradleConfig14" value="1" checked="checked">Publish Ivy descriptors<br>
+<input type="checkbox" name="gradleConfig15" value="1" checked="checked">Use Maven 2 compatible patterns<br>
+<label>Ivy pattern</label><input type="text"><br>
+<label>Artifact pattern</label><input type="text"><br>
+<label>Include patterns</label><input type="text"><br>
+<label>Exclude patterns</label><input type="text"><br><br>
+
+
 	    	</div> 
 	    </div>
     </div>
